@@ -1,0 +1,101 @@
+#featurify #slideshow {
+	list-style:none;
+	color:#fff;
+}
+#featurify #slideshow span {
+	display:none;
+}
+#featurify #wrapper {
+	background:#000;
+	border:3px solid #000;
+	display:none;
+	height:250px;
+	margin:10px 0;
+	overflow:hidden;
+	position:relative;
+	width:500px;
+}
+
+#featurify #information {
+	background:#000;
+	color:#fff;
+	position:absolute;
+	bottom:0;
+	height:0;
+	overflow:hidden;
+	z-index:200;
+	width:100%;
+}
+#featurify #information h3 {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:16px;
+	font-weight:normal;
+	margin:0;
+	padding:5px 10px;
+}
+#featurify #information p {
+	height:20px;
+	margin:0 0 5px;
+	overflow:hidden;
+	padding:0 10px 10px;
+	text-align:justify;
+}
+#featurify #image {
+	height:250px;
+	overflow:auto;
+}
+#featurify #image img {
+	position:absolute;
+	z-index:25;
+}
+#featurify .imgnav {
+	cursor:pointer;
+	height:170px;
+	position:absolute;
+	width:80px;
+	z-index:150;
+}
+#featurify #imgprev {
+	background:url(../images/left.gif) left center no-repeat;
+	left:0; 
+}
+#featurify #imgnext {
+	background:url(../images/right.gif) right center no-repeat;
+	right:0;
+}
+#featurify #imglink {
+	height:180px;
+	position:absolute;
+	width:100%;
+	z-index:100;
+	opacity:.7;
+	filter:alpha(opacity=70);
+}
+#featurify .linkhover {
+	background:url(../images/link.gif) center center no-repeat;
+}
+
+/* Admin ReadMe */
+#featurifyme {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+}
+#featurifyme h2 {
+	font-size:18px;
+	font-weight:bold;
+	margin:0 0 2px 0;
+}
+#featurifyme a {
+	font-size:normal;
+	font-weight:normal;
+}
+#featurifyme pre {
+	border:1px solid #ccc;
+	color:#f36;
+	margin:3px 0 0;
+	padding:5px;
+}
+
+#couponsHead ul {float:right;margin:0 2px 1px 0;text-align:justify;background:#FFF;width:400px;list-style:none;border:0px solid #000;height:250px;overflow:hidden;position:relative;}
+
+#couponsHead ul li{display: inline; }

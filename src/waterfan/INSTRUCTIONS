@@ -1,0 +1,122 @@
+In order to get Twitter login working you must register at the Twitter site to get the keys: http://twitter.com/oauth_clients.
+
+You will need to link back to the confirm.php script.
+
+Enter the details into twitter-login/secret.php
+
+Enter your db details in twitter-login/confirm.php
+
+Enter your site name in twitter-login/confirm.php (replace sitename with http://yoursite.com/)
+
+add the following translations: ----------------------------------------------------------------------------------------------------------------
+
+PLIGG_Visual_Login_Have_Twitter_Account = "You are using your Twitter account to login.  Please click login to continue."
+PLIGG_Visual_Register_Twitter = "You are registering from your Twitter account.  Please enter the missing details to continue"
+PLIGG_Visual_Login_Title_Twitter = "Twitter user?"
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+open login.php and replace the following : -----------------------------------------------------------------------------------------------------
+
+// initialize error message variable
+$errorMsg="";
+
+with:
+
+// initialize error message variable
+$errorMsg="";
+
+//twitter
+$main_smarty->assign('from_external', sanitize($_POST["from_external"],3));
+$main_smarty->assign('login_username', sanitize($_POST["username"],3));
+$main_smarty->assign('password', sanitize($_POST["password"],3));
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+open register.php and replace the following : --------------------------------------------------------------------------------------------------
+
+// sidebar
+$main_smarty = do_sidebar($main_smarty);
+
+with:
+
+// sidebar
+$main_smarty = do_sidebar($main_smarty);
+
+//twitter
+$main_smarty->assign('from_external', sanitize($_POST["from_external"],3));
+$main_smarty->assign('reg_username', sanitize($_POST["reg_username"],3));
+$main_smarty->assign('reg_password', sanitize($_POST["reg_password"],3));
+$main_smarty->assign('reg_password2', sanitize($_POST["reg_password2"],3));
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+open templates/wistie/register_center.tpl and replace the following : --------------------------------------------------------------------------
+
+	<h2>{#PLIGG_Visual_Register_Username#}:</h2>
+
+with:
+
+{if $from_external==1}
+	<input type="hidden" name="from_external" value="1"/>
+	<input type="hidden" name="reg_username" value="{$reg_username}"/>
+	<input type="hidden" name="reg_password" value="{$reg_password}"/>
+	<input type="hidden" name="reg_password2" value="{$reg_password2}"/>
+	<p>{#PLIGG_Visual_Register_Twitter#}</p>
+{/if}
+	<h2>{#PLIGG_Visual_Register_Username#}:</h2>
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+open templates/wistie/register_center.tpl and replace the following : --------------------------------------------------------------------------
+
+	<input type="text" name="reg_username" id="reg_username" value="{if isset($reg_username)}{$reg_username}{/if}" size="25" tabindex="10" maxlength="32"/>
+
+with:
+
+	<input type="text" name="reg_username" id="reg_username" value="{if isset($reg_username)}{$reg_username}{/if}" size="25" tabindex="10" maxlength="32" {if isset($from_external)}disabled="disabled"{/if}/>
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+open templates/wistie/register_center.tpl and replace the following : --------------------------------------------------------------------------
+
+
+	<input type="password" id="reg_password" name="reg_password" value="{if isset($reg_password)}{$reg_password}{/if}" size="25" tabindex="14"/>
+
+with:
+
+	<input type="password" id="reg_password" name="reg_password" value="{if isset($reg_password)}{$reg_password}{/if}" size="25" tabindex="14" {if isset($from_external)}disabled="disabled"{/if}/>
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+open templates/wistie/register_center.tpl and replace the following : --------------------------------------------------------------------------
+
+	<input type="password" id="reg_verify" name="reg_password2" value="{if isset($reg_password2)}{$reg_password2}{/if}" size="25" tabindex="15"/>
+
+with:
+
+	<input type="password" id="reg_verify" name="reg_password2" value="{if isset($reg_password2)}{$reg_password2}{/if}" size="25" tabindex="15" {if isset($from_external)}disabled="disabled"{/if}/>
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+open templates/wistie/header.tpl and replace the following : -----------------------------------------------------------------------------------
+
+	{if $user_authenticated neq true}<a href='{$URL_register}'>{#PLIGG_Visual_Register#}</a> | <a href='{$URL_login}'>{#PLIGG_Visual_Login_Title#}</a>{/if}
+
+with:
+
+	{if $user_authenticated neq true}<a href='{$URL_register}'>{#PLIGG_Visual_Register#}</a> | <a href='{$URL_login}'>{#PLIGG_Visual_Login_Title#}</a> | <a href='/twitter-login/index.php'>{#PLIGG_Visual_Login_Title_Twitter#}</a>{/if}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+Run the DB patch : -----------------------------------------------------------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS `twitter_user_map` (
+  `twitter_user_name` varchar(255) NOT NULL,
+  `pligg_user_name` varchar(32) NOT NULL,
+  `pligg_password` varchar(255) NOT NULL,
+  PRIMARY KEY  (`twitter_user_name`),
+  UNIQUE KEY `pligg_user_name` (`pligg_user_name`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+------------------------------------------------------------------------------------------------------------------------------------------------

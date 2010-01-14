@@ -1,0 +1,2 @@
+{if isset($register_captcha_error)}<br /><span class="error">{$register_captcha_error}</span><br /><br />{/if}
+<br /><b>What is the answer to this question:</b> What is {$number1} + {$number2} = <input type="text" size="2" name="answer" />

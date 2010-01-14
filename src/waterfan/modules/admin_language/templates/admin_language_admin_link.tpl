@@ -1,0 +1,1 @@
+<li><a href="{$my_pligg_base}/module.php?module=admin_language" {if $modulename eq "admin_language"}class="navcur"{else}class="nav"{/if} >Language</a></li>

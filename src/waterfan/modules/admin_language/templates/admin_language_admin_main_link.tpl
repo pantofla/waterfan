@@ -1,0 +1,1 @@
+<img src="{$my_pligg_base}/templates/admin/images/manage_lang.gif" align="absmiddle"/> <a href="{$my_pligg_base}/module.php?module=admin_language">{#PLIGG_Visual_AdminPanel_Modify_Language#}</a><br/>
